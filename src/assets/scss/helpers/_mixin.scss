@@ -1,0 +1,23 @@
+@mixin responsive($breakpoints) {
+    @if($breakpoints=='mobile') {
+        @media(max-width:#{$medium - 1px}) {
+            @content
+        }
+    }
+
+    ;
+
+    @if($breakpoints=='table') {
+        @media(min-width:$medium) and (max-width:#{$large -1px}) {
+            @content
+        }
+    }
+
+    ;
+
+    @if($breakpoints=='desktop') {
+        @media(min-width:($large)) {
+            @content
+        }
+    }
+}
