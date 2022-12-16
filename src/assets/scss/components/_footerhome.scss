@@ -58,11 +58,33 @@ footer {
     }
 }
 
-@include responsive("mobile") {
+;
+
+@include mobile {
     footer {
         .footer-list {
             h3 {
-                font-size: 1.20rem;
+                font-size: 1rem;
+            }
+
+            ul {
+                font-size: 0.8rem;
+            }
+        }
+
+        .footer-bottom {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+;
+
+@include tablet {
+    footer {
+        .footer-list {
+            h3 {
+                font-size: 1.2rem;
             }
 
             ul {
