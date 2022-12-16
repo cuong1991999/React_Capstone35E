@@ -105,7 +105,7 @@ header {
     }
 }
 
-@include responsive('mobile') {
+@include mobile() {
     header {
         .header-top {
             .header-top__user {

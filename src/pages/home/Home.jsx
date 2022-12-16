@@ -6,12 +6,17 @@ import { getAllProductApi } from "../../redux/reducer/productReducer";
 import { NavLink } from "react-router-dom";
 
 const Home = () => {
+  // lay arrProduct tu reducer
   const { arrProduct } = useSelector((state) => state.productReducer);
   console.log(arrProduct);
 
   const dispatch = useDispatch();
+
+  // lay api Product tu backend
   const getAllProduct = async () => {
+    // chay getAllProductApi de lay API
     const action = getAllProductApi();
+    // thuc hien ham getAllProductApi gui len reducer
     dispatch(action);
   };
   useEffect(() => {
@@ -19,10 +24,10 @@ const Home = () => {
   }, []);
   return (
     <div className=" home">
-      <Carousel effect={"scroll"}>
-        {arrProduct.slice(0, 4).map((item) => {
+      <Carousel effect={"scroll"} autoplay={true}>
+        {arrProduct.slice(0, 4).map((item, index) => {
           return (
-            <div key={item?.id} className="carousel">
+            <div className="carousel" key={item.id}>
               <div className="carousel-item">
                 <div className="w-35">
                   <img
@@ -52,7 +57,7 @@ const Home = () => {
         <div className="row g-0">
           {arrProduct.map((prod) => {
             return (
-              <div className="col-6 col-md-4 col-lg-3 " key={prod?.id}>
+              <div className="col-6 col-md-4 col-lg-3 " key={prod.id}>
                 <ShoesCard prod={prod} />
               </div>
             );

@@ -6,7 +6,7 @@ const HeaderHome = () => {
       <div className="header py-2">
         <div className="header-top container">
           <NavLink to="/home" className="header-top__logo">
-            <img src="./img/c255c800e61e47ec7698ffdc99e50a95.png" alt="..." />
+            <img src="/img/c255c800e61e47ec7698ffdc99e50a95.png" alt="..." />
           </NavLink>
           <div className="header-top__user">
             <NavLink
