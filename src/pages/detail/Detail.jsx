@@ -5,17 +5,20 @@ import { getProductByIdApi } from "../../redux/reducer/productReducer";
 import ShoesCard from "../../components/ShoesCard/ShoesCard";
 
 const Detail = () => {
+  // lấy productdetail từ productReducer
   const { productDetail } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
 
   console.log(productDetail);
+  // lấy param
   const param = useParams();
 
   const getProductById = () => {
+    // lấy api
     const action = getProductByIdApi(param.id);
     dispatch(action);
   };
-
+  //call api theo id để lấy productdetail về reducer
   useEffect(() => {
     getProductById();
   }, [param.id]);
