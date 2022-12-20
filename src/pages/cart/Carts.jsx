@@ -1,44 +1,105 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeQuantityCartAction,
+  deleteProductCartAction,
+} from "../../redux/reducer/productReducer";
 
 const Carts = () => {
+  const { arrStore } = useSelector((state) => state.productReducer);
+  const dispatch = useDispatch();
+  const subTotal = () => {
+    return arrStore.reduce((tt, current) => {
+      return tt + current.price * current.quantity;
+    }, 0);
+  };
   return (
-    <div className="container">
+    <div className="container cart">
       <h2 className=" text-center">Cart</h2>
-      <table className="text-center table__cart ">
+      <table className=" table__cart ">
         <thead className=" table__head">
           <tr>
-            <th colspan="2">Product</th>
-            <th>price</th>
-            <th>quantity</th>
-            <th>total</th>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
             <th></th>
           </tr>
         </thead>
         <tbody className="table__body">
+          {arrStore.map((item) => {
+            return (
+              <tr key={item.id}>
+                <td>
+                  <img src={item?.image} alt="" />
+                </td>
+                <td>
+                  <span>
+                    {item?.name}-size{item?.size}
+                  </span>
+                </td>
+                <td>
+                  <span>{item?.price}</span>
+                </td>
+                <td className="table__body-btn">
+                  <button
+                    onClick={() => {
+                      const itemCart = {
+                        id: item.id,
+                        quantity: 1,
+                      };
+                      const action = changeQuantityCartAction(itemCart);
+                      dispatch(action);
+                    }}
+                  >
+                    +
+                  </button>
+                  <span>{item?.quantity}</span>
+                  <button
+                    onClick={() => {
+                      const itemCart = {
+                        id: item.id,
+                        quantity: -1,
+                      };
+                      const action = changeQuantityCartAction(itemCart);
+                      dispatch(action);
+                    }}
+                  >
+                    -
+                  </button>
+                </td>
+                <td>
+                  <span>{item?.quantity * item?.price}</span>
+                </td>
+                <td>
+                  <span
+                    className="table__btn-delete"
+                    onClick={() => {
+                      const action = deleteProductCartAction(item.id);
+                      dispatch(action);
+                    }}
+                  >
+                    <i className="fa-solid fa-trash"></i>
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot className="table__footer">
           <tr>
-            <td>
-              <img
-                src="/img/799d5aa6f69bed4a46a282456a6ab37e.png"
-                width={140}
-                alt=""
-              />
+            <td colSpan={3}>
+              <span>Subtotal:{subTotal()}$</span>
             </td>
-            <td>Adias</td>
-            <td>1000</td>
-            <td>
-              <button>+</button>
-              <span>1</span>
-              <button>-</button>
-            </td>
-            <td>1000</td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
+
+            <td colSpan={3}>
+              <button type="submit" className="table__btn-submit">
+                SUBMIT ORDER
+              </button>
             </td>
           </tr>
-        </tbody>
-        <button type="submit" className="btn btn-warning">
-          submit order
-        </button>
+        </tfoot>
       </table>
     </div>
   );
