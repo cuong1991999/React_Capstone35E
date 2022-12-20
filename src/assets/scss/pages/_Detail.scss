@@ -25,7 +25,10 @@
                     display: flex;
                     flex-wrap: wrap;
 
-                    button {
+                    a {
+                        text-align: center;
+                        line-height: 1.875rem;
+                        display: inline-block;
                         margin-bottom: 0.5rem;
                         width: 1.875rem;
                         border-radius: 0.25rem;
@@ -34,6 +37,18 @@
                         margin-right: 0.625rem;
                         cursor: pointer;
                         border: none;
+                        text-decoration: none;
+                        color: #000;
+
+                        &:target {
+                            color: #fff;
+                            background-color: orange;
+                        }
+
+                        &:active {
+                            color: #fff;
+                            background-color: orange;
+                        }
                     }
                 }
 

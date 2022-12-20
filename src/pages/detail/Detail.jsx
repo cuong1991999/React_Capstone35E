@@ -1,15 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getProductByIdApi } from "../../redux/reducer/productReducer";
+import { useParams, NavLink } from "react-router-dom";
+import {
+  getAddProductStoreAction,
+  getProductByIdApi,
+  getQuatityProductAction,
+  getSizeProductAction,
+} from "../../redux/reducer/productReducer";
 import ShoesCard from "../../components/ShoesCard/ShoesCard";
 
 const Detail = () => {
   // lấy productdetail từ productReducer
-  const { productDetail } = useSelector((state) => state.productReducer);
+  const { productDetail, productQuantity, productSize } = useSelector(
+    (state) => state.productReducer
+  );
   const dispatch = useDispatch();
 
-  console.log(productDetail);
+  // console.log(productDetail);
   // lấy param
   const param = useParams();
 
@@ -22,6 +29,7 @@ const Detail = () => {
   useEffect(() => {
     getProductById();
   }, [param.id]);
+
   return (
     <section className="detail">
       <div className="product__detail container">
@@ -35,16 +43,55 @@ const Detail = () => {
             <p>Available size</p>
             <div className="product__item-btn">
               {productDetail?.size.map((item) => {
-                return <button key={item}>{item}</button>;
+                return (
+                  <a
+                    href="#target"
+                    key={item}
+                    className={productSize.className}
+                    onClick={() => {
+                      const action = getSizeProductAction(item);
+                      dispatch(action);
+                    }}
+                  >
+                    {item}
+                  </a>
+                );
               })}
             </div>
             <p>{productDetail?.price}$</p>
             <div className="product__item-btn-quantity">
-              <button>+</button>
-              <span>1</span>
-              <button>-</button>
+              <button
+                onClick={() => {
+                  const action = getQuatityProductAction(1);
+                  dispatch(action);
+                }}
+              >
+                +
+              </button>
+              <span>{productQuantity}</span>
+              <button
+                onClick={() => {
+                  const action = getQuatityProductAction(-1);
+                  dispatch(action);
+                }}
+              >
+                -
+              </button>
             </div>
-            <button className="btn product__item-btn-cart">Add to cart</button>
+            <button
+              className="btn product__item-btn-cart"
+              onClick={() => {
+                const itemCart = {
+                  ...productDetail,
+                  quantity: productQuantity,
+                  size: productSize,
+                };
+                const action = getAddProductStoreAction(itemCart);
+                dispatch(action);
+              }}
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

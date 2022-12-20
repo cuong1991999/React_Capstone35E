@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import axios from "axios";
 import _ from "lodash";
 const initialState = {
@@ -6,10 +7,15 @@ const initialState = {
   arrProduct: [],
   //detail
   productDetail: null,
+  productQuantity: 1,
+  productSize: 36,
+
+  productStore: null,
   //search
   arrSearch: [],
   sort: "",
   //cart
+  arrStore: [],
 };
 
 const productReducer = createSlice({
@@ -24,6 +30,19 @@ const productReducer = createSlice({
     //detail
     getProductDetailAction: (state, action) => {
       state.productDetail = action.payload;
+    },
+    // lay size giay
+    getSizeProductAction: (state, action) => {
+      state.productSize = action.payload;
+      console.log(state.productSize);
+    },
+    // lay so luong
+    getQuatityProductAction: (state, action) => {
+      if (state.productQuantity <= 1) {
+        state.productQuantity += 1;
+      }
+      state.productQuantity += action.payload;
+      console.log(state.productQuantity);
     },
     //search
     getProductByKeyWordAction: (state, action) => {
@@ -49,6 +68,37 @@ const productReducer = createSlice({
         return state.arrSearch;
       }
     },
+    //cart
+    //them product vao cart
+    getAddProductStoreAction: (state, action) => {
+      const productCheck = state.arrStore.find(
+        (item) => item.id === action.payload.id
+      );
+      if (productCheck) {
+        productCheck.quantity += action.payload.quantity;
+      } else {
+        state.arrStore.push(action.payload);
+      }
+
+      console.log(state.arrStore);
+    },
+    // thay doi so luong trong cart
+    changeQuantityCartAction: (state, action) => {
+      const { id, quantity } = action.payload;
+      const productCheck = state.arrStore.find((item) => item.id === id);
+      if (productCheck) {
+        if (productCheck.quantity <= 1) {
+          productCheck.quantity += 1;
+        }
+        productCheck.quantity += quantity;
+      }
+    },
+    // delete product trong cart
+    deleteProductCartAction: (state, action) => {
+      state.arrStore = state.arrStore.filter(
+        (item) => item.id !== action.payload
+      );
+    },
   },
 });
 
@@ -57,6 +107,11 @@ export const {
   getProductDetailAction,
   getProductByKeyWordAction,
   getFillterProductAction,
+  getSizeProductAction,
+  getQuatityProductAction,
+  getAddProductStoreAction,
+  changeQuantityCartAction,
+  deleteProductCartAction,
 } = productReducer.actions;
 
 export default productReducer.reducer;

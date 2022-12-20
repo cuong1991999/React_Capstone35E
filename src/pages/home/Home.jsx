@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 const Home = () => {
   // lay arrProduct tu reducer
   const { arrProduct } = useSelector((state) => state.productReducer);
-  console.log(arrProduct);
+  // console.log(arrProduct);
 
   const dispatch = useDispatch();
 
