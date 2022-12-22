@@ -1,6 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 const HeaderHome = () => {
+  const { arrStore } = useSelector((state) => state.productReducer);
+  // render quantity len gio hang khi nguoi dung add to cart
+
+  const renderQuantity = () => {
+    const arr = arrStore.reduce((tt, current) => {
+      return tt + current.quantity;
+    }, 0);
+    return arr;
+  };
   return (
     <header>
       <div className="header py-2">
@@ -29,7 +39,8 @@ const HeaderHome = () => {
               }
             >
               <i className="fa-solid fa-cart-shopping"></i>
-              <span>(1)</span>
+
+              <span>({renderQuantity() > 0 ? renderQuantity() : 0}) </span>
             </NavLink>
             <NavLink
               to="/login"

@@ -53,11 +53,13 @@ const Home = () => {
         })}
       </Carousel>
       <div className=" container mt-2 g-0 home__feature">
-        <h3 className="text-center mb-3">Product Feature </h3>
-        <div className="row g-0">
+        <h3 className="text-center mb-3 home__feature-title">
+          Product Feature{" "}
+        </h3>
+        <div className="row ">
           {arrProduct.map((prod) => {
             return (
-              <div className="col-6 col-md-4 col-lg-3 " key={prod.id}>
+              <div className="col-6 col-md-3 col-lg-2 mb-4" key={prod.id}>
                 <ShoesCard prod={prod} />
               </div>
             );

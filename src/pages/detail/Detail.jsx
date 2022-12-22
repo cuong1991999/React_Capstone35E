@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import {
@@ -29,7 +29,22 @@ const Detail = () => {
   useEffect(() => {
     getProductById();
   }, [param.id]);
-
+  const renderButton = () => {
+    return productDetail?.size.map((item) => {
+      return (
+        <button
+          key={item}
+          className={productSize === item ? "actived" : ""}
+          onClick={() => {
+            const action = getSizeProductAction(item);
+            dispatch(action);
+          }}
+        >
+          {item}
+        </button>
+      );
+    });
+  };
   return (
     <section className="detail">
       <div className="product__detail container">
@@ -41,23 +56,7 @@ const Detail = () => {
             <h3>{productDetail?.name}</h3>
             <p>{productDetail?.description}</p>
             <p>Available size</p>
-            <div className="product__item-btn">
-              {productDetail?.size.map((item) => {
-                return (
-                  <a
-                    href="#target"
-                    key={item}
-                    className={productSize.className}
-                    onClick={() => {
-                      const action = getSizeProductAction(item);
-                      dispatch(action);
-                    }}
-                  >
-                    {item}
-                  </a>
-                );
-              })}
-            </div>
+            <div className="product__item-btn">{renderButton()}</div>
             <p>{productDetail?.price}$</p>
             <div className="product__item-btn-quantity">
               <button
