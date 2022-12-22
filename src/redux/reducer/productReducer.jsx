@@ -8,7 +8,7 @@ const initialState = {
   //detail
   productDetail: null,
   productQuantity: 1,
-  productSize: 36,
+  productSize: null,
 
   productStore: null,
   //search
@@ -71,6 +71,10 @@ const productReducer = createSlice({
     //cart
     //them product vao cart
     getAddProductStoreAction: (state, action) => {
+      if (!state.productSize) {
+        alert("Xin chọn size giày phù hợp");
+        return;
+      }
       const productCheck = state.arrStore.find(
         (item) => item.id === action.payload.id
       );
