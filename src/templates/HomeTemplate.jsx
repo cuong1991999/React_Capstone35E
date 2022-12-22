@@ -7,7 +7,10 @@ const HomeTemplate = () => {
     <>
       <HeaderHome />
 
-      <section style={{ minHeight: "100vh" }}>
+      <section
+        className="py-5 "
+        style={{ backgroundColor: "rgba(153, 153, 153, 0.1)" }}
+      >
         <Outlet />
       </section>
       <FooterHome />
