@@ -16,7 +16,6 @@ const Detail = () => {
   );
   const dispatch = useDispatch();
 
-  // console.log(productDetail);
   // lấy param
   const param = useParams();
 

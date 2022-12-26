@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { http } from "../../util/config";
 import axios from "axios";
 import _ from "lodash";
 const initialState = {
@@ -34,7 +34,6 @@ const productReducer = createSlice({
     // lay size giay
     getSizeProductAction: (state, action) => {
       state.productSize = action.payload;
-      console.log(state.productSize);
     },
     // lay so luong
     getQuatityProductAction: (state, action) => {
@@ -42,7 +41,6 @@ const productReducer = createSlice({
         state.productQuantity += 1;
       }
       state.productQuantity += action.payload;
-      console.log(state.productQuantity);
     },
     //search
     getProductByKeyWordAction: (state, action) => {
@@ -83,8 +81,6 @@ const productReducer = createSlice({
       } else {
         state.arrStore.push(action.payload);
       }
-
-      console.log(state.arrStore);
     },
     // thay doi so luong trong cart
     changeQuantityCartAction: (state, action) => {
@@ -124,24 +120,27 @@ export default productReducer.reducer;
 // lay san pham tu api ve
 export const getAllProductApi = () => {
   return async (dispatch) => {
-    const result = await axios({
-      url: "https://shop.cyberlearn.vn/api/Product",
-      method: "GET",
-    });
+    // const result = await axios({
+    //   url: "https://shop.cyberlearn.vn/api/Product",
+    //   method: "GET",
+    // });
+    const result = await http.get("/api/Product");
     const action = getProductAction(result.data.content);
-    // console.log(action);
+
     dispatch(action);
   };
 };
 // lay san pham qua id trong trang detail
 export const getProductByIdApi = (id) => {
   return async (dispatch) => {
-    const result = await axios({
-      url: `https://shop.cyberlearn.vn/api/Product/getbyid?id=${id}`,
-      method: "GET",
-    });
+    // const result = await axios({
+    //   url: `https://shop.cyberlearn.vn/api/Product/getbyid?id=${id}`,
+    //   method: "GET",
+    // });
+    const result = await http.get(`/api/Product/getbyid?id=${id}`);
+
     const action = getProductDetailAction(result.data.content);
-    // console.log(action);
+
     dispatch(action);
   };
 };
@@ -150,13 +149,15 @@ export const getProductByKeyWordApi = (keyword) => {
   return async (dispatch) => {
     //nếu keyword khác null => call api
     if (keyword) {
-      const result = await axios({
-        url: `https://shop.cyberlearn.vn/api/Product?keyword=${keyword}`,
-        method: "GET",
-      });
+      // const result = await axios({
+      //   url: `https://shop.cyberlearn.vn/api/Product?keyword=${keyword}`,
+      //   method: "GET",
+      // });
+      const result = await http.get(`/api/Product?keyword=${keyword}`);
+
       //Sau khi call api dựa vào từ khoá thành công thì dispatch len reducer
       const action = getProductByKeyWordAction(result.data.content);
-      // console.log(action);
+
       dispatch(action);
     }
   };
