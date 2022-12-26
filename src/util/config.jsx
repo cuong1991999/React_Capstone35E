@@ -4,7 +4,16 @@ import { isExpired, decodeToken } from "react-jwt";
 
 export const USER_LOGIN = "userLogin";
 export const TOKEN = "accessToken";
-export const {} = {
+export const {
+  saveStore,
+  saveStoreJson,
+  getStore,
+  getStoreJson,
+  removeStore,
+  setCookie,
+  getCookie,
+  eraseCookie,
+} = {
   saveStore: (name, data) => {
     localStorage.setItem(name, data);
   },

@@ -21,7 +21,7 @@ const Search = () => {
     },
     onSubmit: (values) => {
       //values.keyword = 'abc'
-      // console.log(values);
+
       //Khi người dùng gõ từ khoá và submit => đưa từ khoá lên url
       setSearchParams({
         k: values.keyword,

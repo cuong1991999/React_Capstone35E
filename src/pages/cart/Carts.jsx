@@ -94,9 +94,7 @@ const Carts = () => {
             </td>
 
             <td colSpan={3}>
-              <button type="submit" className="table__btn-submit">
-                SUBMIT ORDER
-              </button>
+              <button className="table__btn-submit">SUBMIT ORDER</button>
             </td>
           </tr>
         </tfoot>
