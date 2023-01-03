@@ -66,7 +66,6 @@ const productReducer = createSlice({
         return state.arrSearch;
       }
     },
-    //cart
     //them product vao cart
     getAddProductStoreAction: (state, action) => {
       if (!state.productSize) {
@@ -82,6 +81,7 @@ const productReducer = createSlice({
         state.arrStore.push(action.payload);
       }
     },
+    //cart
     // thay doi so luong trong cart
     changeQuantityCartAction: (state, action) => {
       const { id, quantity } = action.payload;
