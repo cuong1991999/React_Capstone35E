@@ -11,12 +11,16 @@ const HeaderHome = () => {
     }, 0);
     return arr;
   };
+
   return (
     <header>
       <div className="header py-2">
         <div className="header-top container">
           <NavLink to="/home" className="header-top__logo">
-            <img src="/img/c255c800e61e47ec7698ffdc99e50a95.png" alt="..." />
+            <img
+              src="/img/09deac31-4bdc-4bb6-b6f2-e644b4ff0500.png"
+              alt="..."
+            />
           </NavLink>
           <div className="header-top__user">
             <NavLink
