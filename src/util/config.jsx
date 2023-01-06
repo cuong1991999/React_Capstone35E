@@ -13,7 +13,13 @@ export const {
   setCookie,
   getCookie,
   eraseCookie,
+  getToken
 } = {
+  getToken: () => {
+    const token = localStorage.getItem("userLogin");
+    if(token) return JSON.parse(token).accessToken;
+    return null;
+},
   saveStore: (name, data) => {
     localStorage.setItem(name, data);
   },
@@ -23,7 +29,7 @@ export const {
     localStorage.setItem(name, data);
   },
   getStore: (name) => {
-    if (localStorage.getItem(name)) {
+    if(localStorage.getItem(name)){
       return localStorage.getItem(name);
     }
   },
@@ -70,7 +76,7 @@ http.interceptors.request.use(
   (config) => {
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${getCookie(TOKEN)} `,
+      Authorization: `Bearer ${getToken()} `,
     };
     return config;
   },
@@ -87,10 +93,11 @@ http.interceptors.response.use(
     //Bắt lỗi 400 hoặc 404
     if (err.response?.status === 400 || err.response?.status === 404) {
       //Lỗi do tham số => backend trả về 400 hoặc 404 mình sẽ xử lý
-      alert("tham số không hợp lệ !");
+      alert("tham số không hợp lệ hoặc Trùng email");
       //chuyển hướng về home
       history.push("/");
     }
+    
     if (err.response?.status === 401 || err.response.status == 403) {
       const isMyTokenExpired = isExpired(getStore(TOKEN));
       //token hết hạn
