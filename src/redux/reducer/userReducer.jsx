@@ -1,10 +1,7 @@
-import axios from "axios";
 import { history } from "../../index";
 import { createSlice } from "@reduxjs/toolkit";
 import { getStore, http, saveStoreJson, USER_LOGIN } from "../../util/config";
-const initialState = {
-  userRegister: null,
-};
+const initialState = {};
 
 const userReducer = createSlice({
   name: "userReducer",

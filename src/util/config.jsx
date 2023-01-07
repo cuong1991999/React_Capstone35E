@@ -1,6 +1,6 @@
 import axios from "axios";
 import { history } from "../index";
-import { isExpired, decodeToken } from "react-jwt";
+import { isExpired } from "react-jwt";
 
 export const USER_LOGIN = "userLogin";
 export const TOKEN = "accessToken";
@@ -13,13 +13,13 @@ export const {
   setCookie,
   getCookie,
   eraseCookie,
-  getToken
+  getToken,
 } = {
   getToken: () => {
     const token = localStorage.getItem("userLogin");
-    if(token) return JSON.parse(token).accessToken;
+    if (token) return JSON.parse(token).accessToken;
     return null;
-},
+  },
   saveStore: (name, data) => {
     localStorage.setItem(name, data);
   },
@@ -29,7 +29,7 @@ export const {
     localStorage.setItem(name, data);
   },
   getStore: (name) => {
-    if(localStorage.getItem(name)){
+    if (localStorage.getItem(name)) {
       return localStorage.getItem(name);
     }
   },
@@ -97,7 +97,7 @@ http.interceptors.response.use(
       //chuyển hướng về home
       history.push("/");
     }
-    
+
     if (err.response?.status === 401 || err.response.status == 403) {
       const isMyTokenExpired = isExpired(getStore(TOKEN));
       //token hết hạn
