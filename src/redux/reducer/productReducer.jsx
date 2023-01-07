@@ -174,7 +174,7 @@ export const orderProduct = (data) => {
     try {
       const result = await http.post("/api/Users/order", data);
       history.push("/profile");
-
+      window.location.reload();
       alert("Đặt hàng thành công");
     } catch {
       alert("Đặt hàng thất bại");

@@ -110,7 +110,7 @@ export const loginFacebookApi = (fbToken) => {
       console.log(result.data.content);
       // alert('đăng nhập thành công')
       history.push("/profile");
-      // window.location.reload();
+      window.location.reload();
       saveStoreJson(USER_LOGIN, result.data.content);
     };
   } catch (error) {
@@ -123,7 +123,7 @@ export const deteleOrderApi = (id) => {
     return async () => {
       const result = await http.post("/api/Users/deleteOrder", id);
       console.log(result);
-      // window.location.reload();
+      window.location.reload();
     };
   } catch (error) {
     console.log(error);
