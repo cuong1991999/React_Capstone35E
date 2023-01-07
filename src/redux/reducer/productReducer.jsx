@@ -96,7 +96,9 @@ const productReducer = createSlice({
         }
       }
     },
-
+    orderArrAction: (state, action) => {
+      state.arrStore = action.payload;
+    },
     // delete product trong cart
     deleteProductCartAction: (state, action) => {
       state.arrStore = state.arrStore.filter(
@@ -107,6 +109,7 @@ const productReducer = createSlice({
 });
 
 export const {
+  orderArrAction,
   getProductAction,
   getProductDetailAction,
   getProductByKeyWordAction,
@@ -174,6 +177,7 @@ export const orderProduct = (data) => {
     try {
       const result = await http.post("/api/Users/order", data);
       history.push("/profile");
+      dispatch(orderArrAction([]));
       window.location.reload();
       alert("Đặt hàng thành công");
     } catch {
