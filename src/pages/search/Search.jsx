@@ -7,7 +7,6 @@ import {
   getFillterProductAction,
   getProductByKeyWordApi,
 } from "../../redux/reducer/productReducer";
-import _ from "lodash";
 
 const Search = () => {
   const { arrSearch } = useSelector((state) => state.productReducer);
@@ -28,7 +27,7 @@ const Search = () => {
       });
     },
   });
-  console.log(arrSearch);
+
   const getProductSearch = () => {
     // gui keyword len async function
     const action = getProductByKeyWordApi(keyword);

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { http } from "../../util/config";
-import axios from "axios";
+
 import _ from "lodash";
 const initialState = {
   //index
@@ -37,10 +37,11 @@ const productReducer = createSlice({
     },
     // lay so luong
     getQuatityProductAction: (state, action) => {
-      if (state.productQuantity <= 1) {
+      if (state.productQuantity < 1) {
         state.productQuantity += 1;
+      } else {
+        state.productQuantity += action.payload;
       }
-      state.productQuantity += action.payload;
     },
     //search
     getProductByKeyWordAction: (state, action) => {
@@ -73,7 +74,7 @@ const productReducer = createSlice({
         return;
       }
       const productCheck = state.arrStore.find(
-        (item) => item.id === action.payload.id
+        (item) => item.size === action.payload.size
       );
       if (productCheck) {
         productCheck.quantity += action.payload.quantity;
@@ -84,15 +85,17 @@ const productReducer = createSlice({
     //cart
     // thay doi so luong trong cart
     changeQuantityCartAction: (state, action) => {
-      const { id, quantity } = action.payload;
-      const productCheck = state.arrStore.find((item) => item.id === id);
+      const { id, quantity, size } = action.payload;
+      const productCheck = state.arrStore.find((item) => item.size === size);
       if (productCheck) {
-        if (productCheck.quantity <= 1) {
+        if (productCheck.quantity < 1) {
           productCheck.quantity += 1;
+        } else {
+          productCheck.quantity += quantity;
         }
-        productCheck.quantity += quantity;
       }
     },
+
     // delete product trong cart
     deleteProductCartAction: (state, action) => {
       state.arrStore = state.arrStore.filter(
@@ -124,7 +127,9 @@ export const getAllProductApi = () => {
     //   url: "https://shop.cyberlearn.vn/api/Product",
     //   method: "GET",
     // });
+
     const result = await http.get("/api/Product");
+
     const action = getProductAction(result.data.content);
 
     dispatch(action);
@@ -159,6 +164,17 @@ export const getProductByKeyWordApi = (keyword) => {
       const action = getProductByKeyWordAction(result.data.content);
 
       dispatch(action);
+    }
+  };
+};
+// order
+export const orderProduct = (data) => {
+  return async (dispatch) => {
+    try {
+      const result = await http.post("/api/Users/order", data);
+      alert("Đặt hàng thành công");
+    } catch {
+      alert("Đặt hàng thất bại");
     }
   };
 };
