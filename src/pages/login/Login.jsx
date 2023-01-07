@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { loginApi, loginFacebookApi } from "../../redux/reducer/userReducer";
 // import FacebookLogin from 'react-facebook-login';
-import ReactFacebookLogin from "react-facebook-login";
+// import ReactFacebookLogin from "react-facebook-login";
 const Login = () => {
   let [type, setType] = useState("password");
   let [icon, setIcon] = useState("fa-solid fa-eye");
@@ -90,7 +90,7 @@ const Login = () => {
               <NavLink to="/register">Register now?</NavLink>
               <button className="btn_login">LOGIN</button>
             </div>
-            <div className="">
+            {/* <div className="">
               {" "}
               <ReactFacebookLogin
                 appId="1262329041298224"
@@ -100,13 +100,12 @@ const Login = () => {
                 cssClass="btn_fb"
                 icon="fa-facebook"
               />
-            </div>
+            </div> */}
             {/* <button className='btn_fb'>
               <i className="fa-brands fa-facebook"></i>
               <span>Continue with Facebook</span>              
             </button> */}
           </form>
-          <div className="col-3"></div>
         </div>
       </div>
     </section>
