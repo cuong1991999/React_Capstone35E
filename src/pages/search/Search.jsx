@@ -7,7 +7,6 @@ import {
   getFillterProductAction,
   getProductByKeyWordApi,
 } from "../../redux/reducer/productReducer";
-import _ from "lodash";
 
 const Search = () => {
   const { arrSearch } = useSelector((state) => state.productReducer);

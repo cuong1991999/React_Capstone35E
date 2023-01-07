@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { http } from "../../util/config";
-import axios from "axios";
+
 import _ from "lodash";
 const initialState = {
   //index
