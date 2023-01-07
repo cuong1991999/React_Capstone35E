@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 const HeaderHome = () => {
   const { arrStore } = useSelector((state) => state.productReducer);
   // render quantity len gio hang khi nguoi dung add to cart
+  const { userLogin } = useSelector((state) => state.userReducer);
 
   const renderQuantity = () => {
     const arr = arrStore.reduce((tt, current) => {
@@ -35,9 +36,9 @@ const HeaderHome = () => {
               <span className="ms-1">Search</span>
             </NavLink>
             <NavLink
-              to="/carts"
+              to={userLogin ? "/carts" : "/login"}
               className={({ isActive }) =>
-                isActive
+                isActive && userLogin
                   ? "header-user__item user__actived "
                   : "header-user__item"
               }
@@ -73,7 +74,7 @@ const HeaderHome = () => {
         <ul className="header-menu">
           <li>
             <NavLink
-              to="home"
+              to="/home"
               className={({ isActive }) => (isActive ? "actived" : "")}
             >
               Home

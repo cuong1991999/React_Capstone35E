@@ -1,12 +1,17 @@
 import { history } from "../../index";
 import { createSlice } from "@reduxjs/toolkit";
 import { getStore, http, saveStoreJson, USER_LOGIN } from "../../util/config";
-const initialState = {};
+const initialState = {
+  userLogin: null,
+};
 
 const userReducer = createSlice({
   name: "userReducer",
   initialState,
   reducers: {
+    getUserLogin: (state, action) => {
+      state.userLogin = action.payload;
+    },
     setNewUser: (state, action) => {
       state.newUser = action.payload;
     },
@@ -23,6 +28,7 @@ const userReducer = createSlice({
 });
 
 export const {
+  getUserLogin,
   setNewUser,
   getProfileAction,
   postUpdateProfileApi,
@@ -50,11 +56,14 @@ export const registerApi = (infoUse) => {
 };
 //gui thong tin len api de dang nhap
 export const loginApi = (userLogin) => {
-  return async () => {
+  return async (dispatch) => {
     let result = await http.post(`/api/Users/signin`, userLogin);
+    dispatch(getUserLogin(userLogin));
+
     saveStoreJson(USER_LOGIN, result.data.content);
     // alert('đăng nhập thành công')
-    window.location.reload();
+    // window.location.reload();
+
     history.push("/profile");
     //Luu cookie hoac localstorage cho token
     //luu thong tin dang nhap thanh cong {email,accessToken} vao localstorage

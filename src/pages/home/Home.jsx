@@ -53,7 +53,7 @@ const Home = () => {
       </Carousel>
       <div className=" container mt-2 g-0 home__feature">
         <h3 className="text-center mb-3 home__feature-title">
-          Product Feature{" "}
+          Product Feature
         </h3>
         <div className="row ">
           {arrProduct.map((prod) => {
