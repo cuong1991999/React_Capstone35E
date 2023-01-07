@@ -28,6 +28,7 @@ const Detail = () => {
   useEffect(() => {
     getProductById();
   }, [param.id]);
+
   const renderButton = () => {
     return productDetail?.size.map((item) => {
       return (
@@ -80,7 +81,10 @@ const Detail = () => {
               className="btn product__item-btn-cart"
               onClick={() => {
                 const itemCart = {
-                  ...productDetail,
+                  image: productDetail.image,
+                  name: productDetail.name,
+                  productId: productDetail.id,
+                  price: productDetail.price,
                   quantity: productQuantity,
                   size: productSize,
                 };

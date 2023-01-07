@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   changeQuantityCartAction,
   deleteProductCartAction,
+  orderProduct,
 } from "../../redux/reducer/productReducer";
 
 const Carts = () => {
   const { arrStore } = useSelector((state) => state.productReducer);
+  const { userLogin } = useSelector((state) => state.userReducer);
+
   const dispatch = useDispatch();
   const subTotal = () => {
     return arrStore.reduce((tt, current) => {
@@ -28,9 +31,9 @@ const Carts = () => {
           </tr>
         </thead>
         <tbody className="table__body">
-          {arrStore.map((item) => {
+          {arrStore.map((item, index) => {
             return (
-              <tr key={item.id}>
+              <tr key={index}>
                 <td>
                   <img src={item?.image} alt="" />
                 </td>
@@ -46,6 +49,7 @@ const Carts = () => {
                   <button
                     onClick={() => {
                       const itemCart = {
+                        size: item.size,
                         id: item.id,
                         quantity: 1,
                       };
@@ -59,6 +63,8 @@ const Carts = () => {
                   <button
                     onClick={() => {
                       const itemCart = {
+                        size: item.size,
+
                         id: item.id,
                         quantity: -1,
                       };
@@ -94,7 +100,19 @@ const Carts = () => {
             </td>
 
             <td colSpan={3}>
-              <button className="table__btn-submit">SUBMIT ORDER</button>
+              <button
+                className="table__btn-submit"
+                onClick={() => {
+                  const action = {
+                    orderDetail: arrStore,
+                    email: "cuong123@gmail.com",
+                  };
+
+                  dispatch(orderProduct(action));
+                }}
+              >
+                SUBMIT ORDER
+              </button>
             </td>
           </tr>
         </tfoot>
