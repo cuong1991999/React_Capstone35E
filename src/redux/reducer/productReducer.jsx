@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { http } from "../../util/config";
 
 import _ from "lodash";
+import { history } from "../..";
 const initialState = {
   //index
   arrProduct: [],
@@ -172,6 +173,8 @@ export const orderProduct = (data) => {
   return async (dispatch) => {
     try {
       const result = await http.post("/api/Users/order", data);
+      history.push("/profile");
+      window.location.reload();
       alert("Đặt hàng thành công");
     } catch {
       alert("Đặt hàng thất bại");

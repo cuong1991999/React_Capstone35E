@@ -6,7 +6,7 @@ import { removeStore, sl, TOKEN, USER_LOGIN } from "../../util/config";
 const HeaderHome = () => {
   const { arrStore } = useSelector((state) => state.productReducer);
   // render quantity len gio hang khi nguoi dung add to cart
-  const { userLogin } = useSelector((state) => state.userReducer);
+  const { profile } = useSelector((state) => state.userReducer);
 
   const renderQuantity = () => {
     const arr = arrStore.reduce((tt, current) => {
@@ -14,7 +14,35 @@ const HeaderHome = () => {
     }, 0);
     return arr;
   };
-  const { profile } = useSelector((state) => state.userReducer);
+  const renderCart = () => {
+    if (profile) {
+      return (
+        <>
+          <NavLink
+            to={"/carts"}
+            className={({ isActive }) =>
+              isActive && profile
+                ? "header-user__item user__actived "
+                : "header-user__item"
+            }
+          >
+            <i className="fa-solid fa-cart-shopping"></i>
+
+            <span>({renderQuantity() > 0 ? renderQuantity() : 0}) </span>
+          </NavLink>
+        </>
+      );
+    }
+    return (
+      <>
+        <NavLink to={"/login"} className={"header-user__item"}>
+          <i className="fa-solid fa-cart-shopping"></i>
+
+          <span>({renderQuantity() > 0 ? renderQuantity() : 0}) </span>
+        </NavLink>
+      </>
+    );
+  };
   const renderLogin = () => {
     if (profile) {
       return (
@@ -90,18 +118,7 @@ const HeaderHome = () => {
               <i className="fa-solid fa-magnifying-glass "></i>
               <span className="ms-1">Search</span>
             </NavLink>
-            <NavLink
-              to={userLogin ? "/carts" : "/login"}
-              className={({ isActive }) =>
-                isActive && userLogin
-                  ? "header-user__item user__actived "
-                  : "header-user__item"
-              }
-            >
-              <i className="fa-solid fa-cart-shopping"></i>
-
-              <span>({renderQuantity() > 0 ? renderQuantity() : 0}) </span>
-            </NavLink>
+            {renderCart()}
             {renderLogin()}
             {/* <NavLink
               to="/login"

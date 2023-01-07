@@ -8,7 +8,7 @@ import {
 
 const Carts = () => {
   const { arrStore } = useSelector((state) => state.productReducer);
-  const { userLogin } = useSelector((state) => state.userReducer);
+  const { profile } = useSelector((state) => state.userReducer);
 
   const dispatch = useDispatch();
   const subTotal = () => {
@@ -105,7 +105,7 @@ const Carts = () => {
                 onClick={() => {
                   const action = {
                     orderDetail: arrStore,
-                    email: "cuong123@gmail.com",
+                    email: profile.email,
                   };
 
                   dispatch(orderProduct(action));
