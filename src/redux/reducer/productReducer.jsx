@@ -26,6 +26,7 @@ const productReducer = createSlice({
     //index
     getProductAction: (state, action) => {
       // nhan action.payload vao state.arrProduct
+
       state.arrProduct = action.payload;
     },
     //detail
@@ -75,7 +76,7 @@ const productReducer = createSlice({
         return;
       }
       const productCheck = state.arrStore.find(
-        (item) => item.size === action.payload.size
+        (item) => item.productId === action.payload.productId
       );
       if (productCheck) {
         productCheck.quantity += action.payload.quantity;
@@ -86,8 +87,10 @@ const productReducer = createSlice({
     //cart
     // thay doi so luong trong cart
     changeQuantityCartAction: (state, action) => {
-      const { id, quantity, size } = action.payload;
-      const productCheck = state.arrStore.find((item) => item.size === size);
+      const { productId, quantity } = action.payload;
+      const productCheck = state.arrStore.find(
+        (item) => item.productId === productId
+      );
       if (productCheck) {
         if (productCheck.quantity < 1) {
           productCheck.quantity += 1;
@@ -102,7 +105,7 @@ const productReducer = createSlice({
     // delete product trong cart
     deleteProductCartAction: (state, action) => {
       state.arrStore = state.arrStore.filter(
-        (item) => item.id !== action.payload
+        (item) => item.productId !== action.payload
       );
     },
   },

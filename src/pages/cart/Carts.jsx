@@ -50,7 +50,7 @@ const Carts = () => {
                     onClick={() => {
                       const itemCart = {
                         size: item.size,
-                        id: item.id,
+                        productId: item.productId,
                         quantity: 1,
                       };
                       const action = changeQuantityCartAction(itemCart);
@@ -65,7 +65,7 @@ const Carts = () => {
                       const itemCart = {
                         size: item.size,
 
-                        id: item.id,
+                        productId: item.productId,
                         quantity: -1,
                       };
                       const action = changeQuantityCartAction(itemCart);
@@ -82,7 +82,7 @@ const Carts = () => {
                   <span
                     className="table__btn-delete"
                     onClick={() => {
-                      const action = deleteProductCartAction(item.id);
+                      const action = deleteProductCartAction(item.productId);
                       dispatch(action);
                     }}
                   >

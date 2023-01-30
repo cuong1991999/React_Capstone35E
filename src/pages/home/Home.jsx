@@ -24,7 +24,7 @@ const Home = () => {
   return (
     <div className=" home">
       <Carousel effect={"scroll"} autoplay={true}>
-        {arrProduct.slice(0, 4).map((item, index) => {
+        {arrProduct?.slice(0, 4).map((item, index) => {
           return (
             <div className="carousel" key={item.id}>
               <div className="carousel-item">
@@ -56,7 +56,7 @@ const Home = () => {
           Product Feature
         </h3>
         <div className="row g-0 g-md-1">
-          {arrProduct.map((prod) => {
+          {arrProduct?.map((prod) => {
             return (
               <div className="col-6 col-md-3 col-lg-2 mb-2" key={prod.id}>
                 <ShoesCard prod={prod} />

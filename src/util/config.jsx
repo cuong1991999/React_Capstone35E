@@ -98,7 +98,7 @@ http.interceptors.response.use(
       history.push("/");
     }
 
-    if (err.response?.status === 401 || err.response.status == 403) {
+    if (err.response?.status === 401 || err.response?.status === 403) {
       const isMyTokenExpired = isExpired(getStore(TOKEN));
       //token hết hạn
       if (isMyTokenExpired) {
