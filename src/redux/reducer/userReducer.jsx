@@ -1,11 +1,12 @@
-import axios from "axios";
 import { history } from "../../index";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   getStore,
-  getToken,
+  getStoreJson,
   http,
+  saveStore,
   saveStoreJson,
+  TOKEN,
   USER_LOGIN,
 } from "../../util/config";
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   newUser: {},
   productFavorite: [],
   profile: null,
+  userLogin: getStoreJson(USER_LOGIN),
 };
 
 const userReducer = createSlice({
@@ -66,26 +68,25 @@ export const loginApi = (userLogin) => {
     let result = await http.post(`/api/Users/signin`, userLogin);
 
     saveStoreJson(USER_LOGIN, result.data.content);
+    saveStore(TOKEN, result.data.content.accessToken);
     alert("đăng nhập thành công");
 
     history.push("/profile");
     window.location.reload();
-    //Luu cookie hoac localstorage cho token
-    //luu thong tin dang nhap thanh cong {email,accessToken} vao localstorage
-    //luu access token vao cookie
-    // setCookie(TOKEN_CYBER,result.data.content.accessToken);
   };
 };
 
 //lay thong tin user profile
-export const getProfileApi = async (dispatch) => {
-  if (!getToken()) return;
-  // console.log(getStore());
-  let result = await http.post("/api/Users/getProfile");
-  //sau khi call api profile dua len reducer
-  const action = getProfileAction(result.data.content);
-  dispatch(action);
-  // console.log(result.data.content);
+export const getProfileApi = () => {
+  return async (dispatch) => {
+    if (!getStore(TOKEN)) return;
+    // console.log(getStore());
+    let result = await http.post("/api/Users/getProfile");
+    //sau khi call api profile dua len reducer
+    const action = getProfileAction(result.data.content);
+    dispatch(action);
+    // console.log(result.data.content);
+  };
 };
 
 //cap nhat thong tin user
