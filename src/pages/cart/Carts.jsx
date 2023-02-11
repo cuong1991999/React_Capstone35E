@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeQuantityCartAction,
   deleteProductCartAction,
   orderProduct,
 } from "../../redux/reducer/productReducer";
+import { Navigate } from "react-router-dom";
+import { USER_LOGIN, getStoreJson } from "../../util/config";
 
 const Carts = () => {
+  useEffect(() => {
+    if (!getStoreJson(USER_LOGIN)) {
+      alert("You are not logged in !");
+      return <Navigate to="/login" />;
+    }
+  }, []);
+
+  const { userLogin } = useSelector((state) => state.userReducer);
+
   const { arrStore } = useSelector((state) => state.productReducer);
-  const { profile } = useSelector((state) => state.userReducer);
 
   const dispatch = useDispatch();
   const subTotal = () => {
@@ -105,7 +115,7 @@ const Carts = () => {
                 onClick={() => {
                   const action = {
                     orderDetail: arrStore,
-                    email: profile.email,
+                    email: userLogin.email,
                   };
 
                   dispatch(orderProduct(action));

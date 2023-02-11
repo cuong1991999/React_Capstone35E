@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { removeStore, sl, TOKEN, USER_LOGIN } from "../../util/config";
+import { removeStore, TOKEN, USER_LOGIN } from "../../util/config";
 
 const HeaderHome = () => {
   const { arrStore } = useSelector((state) => state.productReducer);
   // render quantity len gio hang khi nguoi dung add to cart
-  const { profile } = useSelector((state) => state.userReducer);
+  const { userLogin } = useSelector((state) => state.userReducer);
 
   const renderQuantity = () => {
     const arr = arrStore.reduce((tt, current) => {
@@ -15,13 +15,13 @@ const HeaderHome = () => {
     return arr;
   };
   const renderCart = () => {
-    if (profile) {
+    if (userLogin) {
       return (
         <>
           <NavLink
             to={"/carts"}
             className={({ isActive }) =>
-              isActive && profile
+              isActive && userLogin
                 ? "header-user__item user__actived "
                 : "header-user__item"
             }
@@ -44,7 +44,7 @@ const HeaderHome = () => {
     );
   };
   const renderLogin = () => {
-    if (profile) {
+    if (userLogin) {
       return (
         <>
           <NavLink
@@ -58,7 +58,7 @@ const HeaderHome = () => {
             to="/profile"
           >
             <span style={{ color: "white", fontSize: "20px" }}>
-              Hello ! {profile?.email}
+              Hello ! {userLogin?.email}
             </span>
           </NavLink>
           <span
@@ -120,26 +120,6 @@ const HeaderHome = () => {
             </NavLink>
             {renderCart()}
             {renderLogin()}
-            {/* <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                isActive
-                  ? "header-user__item user__actived "
-                  : "header-user__item"
-              }
-            >
-              Login
-            </NavLink>
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                isActive
-                  ? "header-user__item user__actived "
-                  : "header-user__item"
-              }
-            >
-              Register
-            </NavLink> */}
           </div>
         </div>
       </div>
@@ -154,36 +134,16 @@ const HeaderHome = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="#"
-              // className={({ isActive }) => (isActive ? "actived" : "")}
-            >
-              Men
-            </NavLink>
+            <NavLink to="#">Men</NavLink>
           </li>
           <li>
-            <NavLink
-              to="#"
-              // className={({ isActive }) => (isActive ? "actived" : "")}
-            >
-              Woman
-            </NavLink>
+            <NavLink to="#">Woman</NavLink>
           </li>
           <li>
-            <NavLink
-              to="#"
-              // className={({ isActive }) => (isActive ? "actived" : "")}
-            >
-              Kid
-            </NavLink>
+            <NavLink to="#">Kid</NavLink>
           </li>
           <li>
-            <NavLink
-              to="#"
-              // className={({ isActive }) => (isActive ? "actived" : "")}
-            >
-              Sport
-            </NavLink>
+            <NavLink to="#">Sport</NavLink>
           </li>
         </ul>
       </nav>

@@ -13,13 +13,7 @@ export const {
   setCookie,
   getCookie,
   eraseCookie,
-  getToken,
 } = {
-  getToken: () => {
-    const token = localStorage.getItem("userLogin");
-    if (token) return JSON.parse(token).accessToken;
-    return null;
-  },
   saveStore: (name, data) => {
     localStorage.setItem(name, data);
   },
@@ -76,7 +70,7 @@ http.interceptors.request.use(
   (config) => {
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${getToken()} `,
+      Authorization: `Bearer ${getStore(TOKEN)} `,
     };
     return config;
   },
