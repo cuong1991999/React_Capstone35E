@@ -5,7 +5,7 @@
 }
 
 header .header {
-  background-color: #000;
+  background-color: #211e16;
 }
 header a {
   text-decoration: none;
@@ -27,8 +27,10 @@ header .header-top a:hover {
   color: orange;
 }
 header .header-top .header-top__logo img {
-  width: 6.25rem;
-  height: 1.875rem;
+  width: 100px;
+  height: 75px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 header .header-top .header-top__user {
   display: flex;
@@ -81,6 +83,12 @@ header nav .header-menu .actived::after {
 }
 
 @media (max-width: 739px) {
+  header .header-top .header-top__logo img {
+    width: 40px;
+    height: 30px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
   header .header-top .header-top__user .header-user__item {
     margin-right: 5px;
     font-size: 12px;
@@ -93,6 +101,14 @@ header nav .header-menu .actived::after {
   }
   header nav {
     font-size: 12px;
+  }
+}
+@media (min-width: 740px) and (max-width: 1023px) {
+  header .header-top .header-top__logo img {
+    width: 40px;
+    height: 30px;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 }
 footer .footer-list {
@@ -188,7 +204,7 @@ footer .footer-bottom {
     font-size: 12px;
   }
   .shoes__card .shoes__card-body .shoes__card-footer a,
-.shoes__card .shoes__card-body .shoes__card-footer p {
+  .shoes__card .shoes__card-body .shoes__card-footer p {
     padding: 5px 0;
     font-size: 12px;
   }
@@ -202,7 +218,7 @@ footer .footer-bottom {
     font-size: 14px;
   }
   .shoes__card .shoes__card-body .shoes__card-footer a,
-.shoes__card .shoes__card-body .shoes__card-footer p {
+  .shoes__card .shoes__card-body .shoes__card-footer p {
     font-size: 12px;
   }
 }
@@ -328,8 +344,11 @@ footer .footer-bottom {
     font-size: 1.25rem;
   }
 }
+.search {
+  padding: 20px 0;
+}
 .search .search-form .search-input {
-  padding: 0.625rem 0.5rem;
+  padding: 0rem 0.5rem;
   margin-right: 0.5rem;
   outline: unset;
   background-color: rgba(33, 33, 33, 0.08);
@@ -339,7 +358,7 @@ footer .footer-bottom {
   border: 1px solid #ccc;
 }
 .search .search-form .search-btn {
-  padding: 0.625rem 1.938rem;
+  padding: 0rem 1.938rem;
   border-radius: 1.563rem;
   border: none;
   background-color: #6200EE;
@@ -352,11 +371,11 @@ footer .footer-bottom {
   }
   .search .search-form .search-input {
     width: 100%;
-    padding: 0.313rem 0.5rem;
+    padding: 0rem 0.5rem;
   }
   .search .search-form .search-btn {
     margin-top: 0.625rem;
-    padding: 0.313rem 1.938rem;
+    padding: 0rem 1.938rem;
   }
   .search .search-result h3 {
     font-size: 0.875rem;
@@ -371,11 +390,11 @@ footer .footer-bottom {
   }
   .search .search-form .search-input {
     width: 100%;
-    padding: 0.313rem 0.5rem;
+    padding: 0rem 0.5rem;
   }
   .search .search-form .search-btn {
     margin-top: 0.625rem;
-    padding: 0.313rem 1.938rem;
+    padding: 0rem 1.938rem;
   }
   .search .search-result h3 {
     font-size: 0.875rem;
